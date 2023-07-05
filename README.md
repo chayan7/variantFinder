@@ -16,3 +16,13 @@ python variant_calling.py [-h] [-d DATADIR] [-r REFGENOMEDIR] [-c CPU] [-v]
 `-c` or `--cpu`: Maximum number of parallel CPU workers to use for multithreading.
 
 `-v` or `--version`: Show the version of the script.
+
+
+## Prerequisites
+Before running the script, make sure you have the following dependencies installed:
+
+- python3
+- samtools
+- minimap2
+- freebayes
+- snpEff
