@@ -102,7 +102,7 @@ if len(refGenome) > 1:
 
 #refFastaIndex command
 
-refIndexcommand = "/home/chayan/bin/samtools-1.9/samtools faidx %s"%(refGenome[0])
+refIndexcommand = "samtools faidx %s"%(refGenome[0])
 os.system(refIndexcommand)
 print('\n', '-- Reference Index created.')
 #execute
@@ -131,7 +131,7 @@ if not os.path.exists(current_directory+'SAM_files/'):
     for fastafiles in dataList: #trialData/GCF_009858895.2.fasta
         samFile=current_directory+'SAM_files/'+renameFile(fastafiles.split('/')[-1], 'sam')
         samfiles.append(samFile)
-        mCom="/home/chayan/bin/minimap2/minimap2 -ax asm5 -t %s %s %s > %s"%(round(core/len(dataList)), refGenome[0], fastafiles, samFile)
+        mCom="minimap2 -ax asm5 -t %s %s %s > %s"%(round(core/len(dataList)), refGenome[0], fastafiles, samFile)
         minimapCom.append(mCom)
     stopped = threading.Event()
     q = Queue()
@@ -164,8 +164,8 @@ if not os.path.exists(current_directory+'BAM_files/'):
         bamFile=current_directory+'BAM_files/'+renameFile(samitems.split('/')[-1], 'bam')
         sortedBam=current_directory+'BAM_files/'+renameFile(samitems.split('/')[-1], 'sorted.bam')
         bamfiles.append(sortedBam)
-        svCom="/home/chayan/bin/samtools-1.9/samtools view -bS %s > %s"%(samitems, bamFile)
-        ssCom="/home/chayan/bin/samtools-1.9/samtools sort -o %s %s"%(sortedBam, bamFile)
+        svCom="samtools view -bS %s > %s"%(samitems, bamFile)
+        ssCom="samtools sort -o %s %s"%(sortedBam, bamFile)
         samtoolViewCom.append(svCom)
         samtoolSortCom.append(ssCom)
 
@@ -237,7 +237,7 @@ if not os.path.exists(current_directory+'Annotated_VCF_files/'):
     for vcfs in vcf_files:
         ann_vcfFile=current_directory+'Annotated_VCF_files/'+renameFile(vcfs.split('/')[-1], 'txt')
         annotated_vcf_files.append(ann_vcfFile)
-        annCom="/home/chayan/bin/snpEff/scripts/snpEff NC_045512.2 %s | grep -v '#' | cut -f 1,2,8 | sed 's/|/\t/g' | cut -f 1,2,4,5,6,12,13 > %s"%(vcfs, ann_vcfFile)
+        annCom="snpEff NC_045512.2 %s | grep -v '#' | cut -f 1,2,8 | sed 's/|/\t/g' | cut -f 1,2,4,5,6,12,13 > %s"%(vcfs, ann_vcfFile)
         annotateCom.append(annCom)
 
     stopped = threading.Event()
